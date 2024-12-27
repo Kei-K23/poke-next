@@ -21,9 +21,25 @@ export default function PokemonCard({ pokemon }: PokemonCardProps) {
           />
         </div>
         <div className="mt-4">
-          <h3 className="text-lg capitalize font-bold">
-            #{pokemon.id.toString().padStart(4, "0")} {pokemon.name}
-          </h3>
+          <div className="flex items-center justify-between">
+            <h3 className="text-lg capitalize font-bold">
+              #{pokemon.id.toString().padStart(4, "0")} {pokemon.name}
+            </h3>
+            <div
+              className="p-1 rounded-full"
+              style={{
+                backgroundColor: getTypeColor(pokemon.types[0].type.name),
+              }}
+            >
+              <div className="size-5 relative">
+                <Image
+                  src={`/icons/${pokemon.types[0].type.name}.svg`}
+                  alt={pokemon.types[0].type.name}
+                  fill
+                />
+              </div>
+            </div>
+          </div>
           <p className="font-semibold text-muted-foreground">
             {pokemon.height} M, {pokemon.weight} KG, {pokemon.base_experience}{" "}
             XP
