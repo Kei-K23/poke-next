@@ -2,20 +2,57 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: 60 5% 96%;
+    --foreground: 0 0% 0%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
+    --primary: 350 89% 60%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 217 91% 60%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 60 5% 90%;
+    --muted-foreground: 0 0% 40%;
+    --accent: 350 89% 60%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 0%;
+    --input: 0 0% 0%;
+    --ring: 350 89% 60%;
+    --radius: 0;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+.neo-brutalism {
+  @apply border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none;
+}
+
+.neo-brutalism-pink {
+  @apply border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-[#FF90E8] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none;
+}
+
+.neo-brutalism-blue {
+  @apply border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-[#90E8FF] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none;
+}
+
+.neo-brutalism-blue-active {
+  @apply border-4 border-black bg-[#90E8FF];
+}
+
+.neo-brutalism-white {
+  @apply border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-white transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none;
 }
