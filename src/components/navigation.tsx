@@ -11,7 +11,7 @@ export default function Navigation() {
 
   return (
     <header className="border-b-4 border-black bg-white">
-      <nav className="container mx-auto px-4 py-4">
+      <nav className="container-s">
         <div className="flex items-center justify-between">
           <Link
             href={"/"}

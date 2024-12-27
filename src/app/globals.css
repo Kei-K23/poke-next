@@ -36,6 +36,9 @@
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
+.container-s {
+  @apply container mx-auto p-4;
+}
 
 .neo-brutalism {
   @apply border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none;

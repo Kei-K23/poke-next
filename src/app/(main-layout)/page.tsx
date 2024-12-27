@@ -1,12 +1,10 @@
-"use client";
-import { usePokemon } from "@/context/pokemon-context";
-
 export default function Home() {
-  const { pokemonDetailsList } = usePokemon();
   return (
-    <ul>
-      {pokemonDetailsList &&
-        pokemonDetailsList?.map((p) => <li key={p.id}>{p.name}</li>)}
-    </ul>
+    <div className="space-y-8">
+      <div className="text-center max-w-2xl mx-auto neo-brutalism-pink p-8">
+        <h2 className="mb-2 text-4xl font-bold">Welcome to PokéNext</h2>
+        <p>Explore the world of Pokémon with our modern Pokédex</p>
+      </div>
+    </div>
   );
 }
