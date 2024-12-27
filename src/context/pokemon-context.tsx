@@ -11,6 +11,11 @@ interface PokemonList {
 export interface Pokemon {
   id: number;
   name: string;
+  abilities: Array<{
+    ability: {
+      name: string;
+    };
+  }>;
   types: Array<{
     type: {
       name: string;
