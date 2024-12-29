@@ -4,6 +4,7 @@ import { Heart, HeartOff } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { Skeleton } from "./ui/skeleton";
 
 interface PokemonCardProps {
   pokemon: Pokemon;
@@ -81,5 +82,23 @@ export default function PokemonCard({ pokemon }: PokemonCardProps) {
         </div>
       </div>
     </Link>
+  );
+}
+
+export function PokemonCardSkeleton() {
+  return (
+    <div className="relative neo-brutalism-white p-4 transition-transform hover:scale-105 overflow-hidden">
+      <div className="neo-brutalism aspect-square relative bg-[#FFE8E8]">
+        <Skeleton className="w-full h-full" />
+      </div>
+      <div className="mt-4">
+        <Skeleton className="h-6 w-3/4 mb-2" />
+        <Skeleton className="h-4 w-full mb-3" />
+        <div className="flex items-center gap-3 mt-3">
+          <Skeleton className="h-6 w-16 rounded-full" />
+          <Skeleton className="h-6 w-16 rounded-full" />
+        </div>
+      </div>
+    </div>
   );
 }
