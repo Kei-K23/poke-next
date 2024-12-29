@@ -48,14 +48,27 @@ export const getTwoRandomPokemon = async () => {
 };
 
 export const votePokemon = async (votedFor: Pokemon, votedAgainst: Pokemon) => {
+  if (!votedFor || !votedAgainst) {
+    throw new Error(
+      "Invalid Pokemon data: votedFor or votedAgainst is null or undefined."
+    );
+  }
+
+  const votedForImageUrl =
+    votedFor.sprites?.other?.["official-artwork"]?.front_default;
+  const votedAgainstImageUrl =
+    votedAgainst.sprites?.other?.["official-artwork"]?.front_default;
+
+  if (!votedForImageUrl || !votedAgainstImageUrl) {
+    throw new Error("Missing image URLs for the selected Pokémon.");
+  }
+
   await prisma.vote.create({
     data: {
       votedFor: votedFor.name,
       votedAgainst: votedAgainst.name,
-      votedForImageUrl:
-        votedFor.sprites.other["official-artwork"].front_default,
-      votedAgainstImageUrl:
-        votedAgainst.sprites.other["official-artwork"].front_default,
+      votedForImageUrl,
+      votedAgainstImageUrl,
     },
   });
 };
