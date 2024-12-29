@@ -45,7 +45,10 @@ interface PokemonProviderProps {
 
 interface PokemonContextType {
   pokemonDetailsList: Pokemon[];
+  favoritePokemon: Pokemon[];
   isLoading: boolean;
+  addFavorite: (pokemon: Pokemon) => void;
+  removeFavorite: (pokemonId: number) => void;
 }
 
 // Create context
@@ -55,6 +58,38 @@ const PokemonContext = createContext<PokemonContextType | undefined>(undefined);
 export const PokemonProvider = ({ children }: PokemonProviderProps) => {
   const [pokemonDetailsList, setPokemonDetailsList] = useState<Pokemon[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [favoritePokemon, setFavoritePokemon] = useState<Pokemon[]>([]);
+
+  // Load favorites from localStorage on mount
+  useEffect(() => {
+    const storedFavorites = localStorage.getItem("poke_next_favoritePokemon");
+    if (storedFavorites) {
+      setFavoritePokemon(JSON.parse(storedFavorites));
+    }
+  }, []);
+
+  // Sync favorites to localStorage
+  useEffect(() => {
+    localStorage.setItem(
+      "poke_next_favoritePokemon",
+      JSON.stringify(favoritePokemon)
+    );
+  }, [favoritePokemon]);
+
+  const addFavorite = (pokemon: Pokemon) => {
+    setFavoritePokemon((prev) => {
+      if (!prev.some((fav) => fav.id === pokemon.id)) {
+        return [...prev, pokemon];
+      }
+      return prev;
+    });
+  };
+
+  const removeFavorite = (pokemonId: number) => {
+    setFavoritePokemon((prev) =>
+      prev.filter((pokemon) => pokemon.id !== pokemonId)
+    );
+  };
 
   const getAllPokemon = async (
     limit = 150,
@@ -111,6 +146,9 @@ export const PokemonProvider = ({ children }: PokemonProviderProps) => {
       value={{
         pokemonDetailsList,
         isLoading,
+        favoritePokemon,
+        addFavorite,
+        removeFavorite,
       }}
     >
       {children}

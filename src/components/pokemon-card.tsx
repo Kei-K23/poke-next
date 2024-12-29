@@ -1,5 +1,6 @@
-import { Pokemon } from "@/context/pokemon-context";
-import { getTypeColor } from "@/lib/utils";
+import { Pokemon, usePokemon } from "@/context/pokemon-context";
+import { cn, getTypeColor } from "@/lib/utils";
+import { Heart, HeartOff } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -9,11 +10,32 @@ interface PokemonCardProps {
 }
 
 export default function PokemonCard({ pokemon }: PokemonCardProps) {
+  const { addFavorite, removeFavorite, favoritePokemon } = usePokemon();
+  const isAlreadyFavorite = favoritePokemon.some((p) => p.id === pokemon.id);
+
   return (
     <Link href={`/pokemon/${pokemon.id}`}>
       <div className="relative neo-brutalism-white p-4 transition-transform hover:scale-105 overflow-hidden">
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            if (isAlreadyFavorite) {
+              removeFavorite(pokemon.id);
+            } else {
+              addFavorite(pokemon);
+            }
+          }}
+          className={cn(
+            "absolute top-2 right-2 z-10 p-2 rounded-full",
+            isAlreadyFavorite
+              ? "neo-brutalism-blue-active"
+              : "neo-brutalism-pink"
+          )}
+        >
+          {isAlreadyFavorite ? <HeartOff /> : <Heart />}
+        </button>
         <div
-          className="p-1 rounded-full absolute top-2 right-2 z-10"
+          className="p-1 rounded-full absolute top-2 left-2 z-10"
           style={{
             backgroundColor: getTypeColor(pokemon.types[0].type.name),
           }}
