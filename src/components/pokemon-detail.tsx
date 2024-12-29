@@ -3,8 +3,15 @@
 import { usePokemon } from "@/context/pokemon-context";
 import { getTypeColor } from "@/lib/utils";
 import Image from "next/image";
-import { Activity, Ruler, Weight } from "lucide-react";
+import {
+  Activity,
+  ChevronLeft,
+  ChevronRight,
+  Ruler,
+  Weight,
+} from "lucide-react";
 import { Progress } from "./ui/progress";
+import { useRouter } from "next/navigation";
 
 interface PokemonDetailProps {
   id: string;
@@ -12,12 +19,28 @@ interface PokemonDetailProps {
 
 export default function PokemonDetail({ id }: PokemonDetailProps) {
   const { pokemonDetailsList } = usePokemon();
-  const pokemon = pokemonDetailsList.find((p) => p.id === +id);
+  const router = useRouter();
+
+  const pokemonIndex = pokemonDetailsList.findIndex((p) => p.id === +id);
+  const pokemon = pokemonDetailsList[pokemonIndex];
 
   if (!pokemon) {
     return null;
   }
 
+  const handleNextPokemon = () => {
+    const nextIndex = (pokemonIndex + 1) % pokemonDetailsList.length; // Loop back to the first Pokémon
+    const nextPokemon = pokemonDetailsList[nextIndex];
+    router.push(`/pokemon/${nextPokemon.id}`); // Navigate to the next Pokémon's page
+  };
+
+  const handlePrevPokemon = () => {
+    const prevIndex =
+      (pokemonIndex - 1 + pokemonDetailsList.length) %
+      pokemonDetailsList.length; // Loop back to the last Pokémon
+    const prevPokemon = pokemonDetailsList[prevIndex];
+    router.push(`/pokemon/${prevPokemon.id}`); // Navigate to the previous Pokémon's page
+  };
   return (
     <div
       className="h-full w-full"
@@ -25,6 +48,14 @@ export default function PokemonDetail({ id }: PokemonDetailProps) {
         backgroundColor: getTypeColor(pokemon.types[0].type.name),
       }}
     >
+      <div className="container mx-auto pt-4 flex items-center gap-x-4 justify-between">
+        <button className="neo-brutalism-white" onClick={handlePrevPokemon}>
+          <ChevronLeft />
+        </button>
+        <button className="neo-brutalism-white" onClick={handleNextPokemon}>
+          <ChevronRight />
+        </button>
+      </div>
       <div className="container mx-auto px-4 py-8 flex flex-col lg:flex-row gap-20 w-full">
         <div className="text-white w-full space-y-8">
           <h3 className="text-xl md:text-3xl lg:text-5xl capitalize font-bold">
@@ -111,9 +142,9 @@ export default function PokemonDetail({ id }: PokemonDetailProps) {
           <Image
             src={`/icons/${pokemon?.types[0].type.name}.svg`}
             alt={pokemon?.types[0].type.name || "pokemon type icon"}
-            width={600}
-            height={600}
-            className="object-contain absolute top-1/2 -translate-y-1/2 size-[350px] md:size-[400px] lg:size-[600px]"
+            width={500}
+            height={500}
+            className="object-contain absolute top-1/2 -translate-y-1/2 size-[350px] md:size-[400px] lg:size-[500px]"
           />
         </div>
       </div>
