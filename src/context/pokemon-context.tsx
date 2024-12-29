@@ -1,8 +1,9 @@
 "use client";
-import { config } from "@/lib/config";
+
+import { getAllPokemon, getPokemon } from "@/lib/pokemon-api";
 import { createContext, useContext, useEffect, useState } from "react";
 
-interface PokemonList {
+export interface PokemonList {
   name: string;
   url: string;
 }
@@ -89,33 +90,6 @@ export const PokemonProvider = ({ children }: PokemonProviderProps) => {
     setFavoritePokemon((prev) =>
       prev.filter((pokemon) => pokemon.id !== pokemonId)
     );
-  };
-
-  const getAllPokemon = async (
-    limit = 150,
-    offset = 0
-  ): Promise<PokemonList[]> => {
-    const res = await fetch(
-      `${config.BASE_POKEMON_API_V2}/pokemon?limit=${limit}&offset=${offset}`
-    );
-
-    if (!res.ok) {
-      return [];
-    }
-
-    const data = await res.json();
-    return data.results as PokemonList[];
-  };
-
-  const getPokemon = async (name: string): Promise<Pokemon | null> => {
-    const res = await fetch(`${config.BASE_POKEMON_API_V2}/pokemon/${name}`);
-
-    if (!res.ok) {
-      return null;
-    }
-
-    const data = await res.json();
-    return data;
   };
 
   useEffect(() => {
