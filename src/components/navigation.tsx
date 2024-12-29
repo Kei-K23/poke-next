@@ -6,6 +6,17 @@ import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
+const NAVIGATION = [
+  {
+    name: "Favorite",
+    link: "/favorite",
+  },
+  {
+    name: "Search",
+    link: "/search",
+  },
+];
+
 export default function Navigation() {
   const pathname = usePathname();
 
@@ -29,18 +40,23 @@ export default function Navigation() {
             </motion.div>
             <span className="text-xl font-bold">PokéNext</span>
           </Link>
-          <Link
-            href={"/search"}
-            className={cn(
-              "px-4 py-2 flex items-center gap-x-2",
-              pathname === "/search"
-                ? "neo-brutalism-blue-active"
-                : "neo-brutalism-white"
-            )}
-          >
-            <Search className="size-6" />
-            <span className="text-base font-bold">Search</span>
-          </Link>
+          <div className="flex items-center gap-x-4">
+            {NAVIGATION.map((nav) => (
+              <Link
+                key={nav.name}
+                href={nav.link}
+                className={cn(
+                  "px-4 py-2 flex items-center gap-x-2",
+                  pathname === nav.link
+                    ? "neo-brutalism-blue-active"
+                    : "neo-brutalism-white"
+                )}
+              >
+                <Search className="size-6" />
+                <span className="text-base font-bold">{nav.name}</span>
+              </Link>
+            ))}
+          </div>
         </div>
       </nav>
     </header>
