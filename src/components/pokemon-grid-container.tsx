@@ -6,14 +6,17 @@ import PokemonCard, { PokemonCardSkeleton } from "./pokemon-card";
 
 interface PokemonGridContainerProps {
   filteredResult?: Pokemon[];
+  isNotAllowObserver?: boolean;
 }
 
 export default function PokemonGridContainer({
   filteredResult,
+  isNotAllowObserver = false,
 }: PokemonGridContainerProps) {
   const { pokemonDetailsList, isLoading, fetchMorePokemon, hasMore } =
     usePokemon();
   const observer = useRef<IntersectionObserver | null>(null);
+
   const lastPokemonElementRef = useCallback(
     (node: HTMLDivElement | null) => {
       if (isLoading) return;
@@ -39,7 +42,11 @@ export default function PokemonGridContainer({
         <div
           key={pokemon.id}
           ref={
-            index === displayedPokemon.length - 1 ? lastPokemonElementRef : null
+            index === displayedPokemon.length - 1
+              ? !isNotAllowObserver
+                ? lastPokemonElementRef
+                : null
+              : null
           }
         >
           <PokemonCard pokemon={pokemon} />

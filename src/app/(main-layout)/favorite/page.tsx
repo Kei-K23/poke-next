@@ -12,7 +12,10 @@ export default function FavoritePage() {
         <h2 className="mb-2 text-4xl font-bold">Your Favorite Pokémon</h2>
       </div>
       {favoritePokemon.length > 0 ? (
-        <PokemonGridContainer filteredResult={favoritePokemon} />
+        <PokemonGridContainer
+          filteredResult={favoritePokemon}
+          isNotAllowObserver
+        />
       ) : (
         <p className="text-center mt-4">No favorite Pokémon found.</p>
       )}

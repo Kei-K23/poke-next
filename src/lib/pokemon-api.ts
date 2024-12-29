@@ -15,7 +15,11 @@ export const getAllPokemon = async (
   }
 
   const data = await res.json();
-  return data.results as PokemonList[];
+  if (data.results.length > 0) {
+    return data.results as PokemonList[];
+  } else {
+    return [];
+  }
 };
 
 export const getPokemon = async (name: string): Promise<Pokemon | null> => {

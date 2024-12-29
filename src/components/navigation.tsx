@@ -1,10 +1,26 @@
 "use client";
-import { ChartNoAxesColumn, Gamepad, Heart, Search, Vote } from "lucide-react";
+import {
+  ChartNoAxesColumn,
+  Gamepad,
+  Heart,
+  Menu,
+  Search,
+  Vote,
+} from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 const NAVIGATION = [
   {
@@ -52,7 +68,7 @@ export default function Navigation() {
             </motion.div>
             <span className="text-xl font-bold">PokéNext</span>
           </Link>
-          <div className="flex items-center gap-x-4">
+          <div className="hidden lg:flex items-center gap-x-4">
             {NAVIGATION.map(({ name, link, icon: Icon }) => (
               <Link
                 key={name}
@@ -69,6 +85,33 @@ export default function Navigation() {
               </Link>
             ))}
           </div>
+          <Sheet>
+            <SheetTrigger className="block lg:hidden neo-brutalism-white">
+              <Menu />
+            </SheetTrigger>
+            <SheetContent className="w-full lg:w-full">
+              <SheetHeader>
+                <SheetTitle></SheetTitle>
+                <SheetDescription className="flex items-center justify-center gap-y-3 flex-col pt-20">
+                  {NAVIGATION.map(({ name, link, icon: Icon }) => (
+                    <Link
+                      key={name}
+                      href={link}
+                      className={cn(
+                        "px-4 py-2 flex items-center justify-center gap-x-2 min-w-[200px]",
+                        pathname === link
+                          ? "neo-brutalism-blue-active"
+                          : "neo-brutalism-white"
+                      )}
+                    >
+                      <Icon className="size-6" />
+                      <span className="text-base font-bold">{name}</span>
+                    </Link>
+                  ))}
+                </SheetDescription>
+              </SheetHeader>
+            </SheetContent>
+          </Sheet>
         </div>
       </nav>
     </header>
