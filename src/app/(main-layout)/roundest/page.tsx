@@ -9,7 +9,7 @@ import { Suspense } from "react";
 function VoteContentLoading() {
   return (
     <div className="flex items-center justify-center w-full">
-      <div className="flex items-center justify-center w-full h-full py-32 gap-x-24">
+      <div className="flex items-center justify-center w-full h-full py-32 gap-x-5 md:gap-x-14 lg:gap-x-24">
         {[0, 1, 2].map((i) => {
           if (i === 1) {
             return (
@@ -17,7 +17,7 @@ function VoteContentLoading() {
                 key={i}
                 className={cn(
                   pressStart2P.className,
-                  "text-6xl bg-gradient-to-r from-pink-500 to-yellow-500 bg-clip-text text-transparent"
+                  "text-2xl md:text-5xl lg:text-6xl bg-gradient-to-r from-pink-500 to-yellow-500 bg-clip-text text-transparent"
                 )}
               >
                 Vs
@@ -44,8 +44,8 @@ async function VoteContent() {
   const randomPokemon = await getTwoRandomPokemon();
 
   return (
-    <div className="flex items-center justify-center w-full">
-      <div className="flex items-center justify-center w-full h-full py-32 gap-x-24">
+    <div className="flex items-center justify-center w-full px-4">
+      <div className="flex items-center justify-center w-full h-full py-32 gap-x-5 md:gap-x-14 lg:gap-x-24">
         {[randomPokemon[0], 1, randomPokemon[1]].map((p, i) => {
           if (i === 1) {
             return (
@@ -53,7 +53,7 @@ async function VoteContent() {
                 key={i}
                 className={cn(
                   pressStart2P.className,
-                  "text-6xl bg-gradient-to-r from-pink-500 to-yellow-500 bg-clip-text text-transparent"
+                  "text-2xl md:text-5xl lg:text-6xl bg-gradient-to-r from-pink-500 to-yellow-500 bg-clip-text text-transparent"
                 )}
               >
                 Vs
@@ -73,10 +73,12 @@ async function VoteContent() {
                   height={300}
                   className="mb-4"
                 />
-                <h3 className="capitalize text-2xl font-bold">{p.name}</h3>
+                <h3 className="capitalize text-base md:text-xl lg:text-2xl font-bold">
+                  {p.name}
+                </h3>
                 <form>
                   <button
-                    className="mt-3 neo-brutalism-blue px-6 py-1.5 text-xl font-semibold"
+                    className="mt-3 neo-brutalism-blue px-4 py-1 text-base lg:px-6 lg:py-1.5 lg:text-xl font-semibold"
                     formAction={async () => {
                       "use server";
                       const loser = randomPokemon[i === 0 ? 1 : 0];

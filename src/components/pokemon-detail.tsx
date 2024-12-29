@@ -48,7 +48,7 @@ export default function PokemonDetail({ id }: PokemonDetailProps) {
         backgroundColor: getTypeColor(pokemon.types[0].type.name),
       }}
     >
-      <div className="container mx-auto pt-4 flex items-center gap-x-4 justify-between">
+      <div className="container mx-auto pt-4 px-4 flex items-center gap-x-4 justify-between">
         <button className="neo-brutalism-white" onClick={handlePrevPokemon}>
           <ChevronLeft />
         </button>
@@ -56,7 +56,7 @@ export default function PokemonDetail({ id }: PokemonDetailProps) {
           <ChevronRight />
         </button>
       </div>
-      <div className="container mx-auto px-4 py-8 flex flex-col lg:flex-row gap-20 w-full">
+      <div className="container mx-auto px-4 py-10 flex flex-col lg:flex-row gap-20 w-full">
         <div className="text-white w-full space-y-8">
           <h3 className="text-xl md:text-3xl lg:text-5xl capitalize font-bold">
             #{pokemon.id.toString().padStart(4, "0")} <br /> {pokemon.name}
@@ -144,7 +144,7 @@ export default function PokemonDetail({ id }: PokemonDetailProps) {
             alt={pokemon?.types[0].type.name || "pokemon type icon"}
             width={500}
             height={500}
-            className="object-contain absolute top-1/2 -translate-y-1/2 size-[350px] md:size-[400px] lg:size-[500px]"
+            className="object-contain absolute top-1/2 -translate-y-1/2 size-[250px] md:size-[400px] lg:size-[500px]"
           />
         </div>
       </div>

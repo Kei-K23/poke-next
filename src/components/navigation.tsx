@@ -8,7 +8,7 @@ import {
   Vote,
 } from "lucide-react";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -46,6 +46,7 @@ const NAVIGATION = [
 ];
 
 export default function Navigation() {
+  const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
   return (
@@ -85,8 +86,11 @@ export default function Navigation() {
               </Link>
             ))}
           </div>
-          <Sheet>
-            <SheetTrigger className="block lg:hidden neo-brutalism-white">
+          <Sheet open={open} onOpenChange={setOpen}>
+            <SheetTrigger
+              onClick={() => setOpen(true)}
+              className="block lg:hidden neo-brutalism-white"
+            >
               <Menu />
             </SheetTrigger>
             <SheetContent className="w-full lg:w-full">
@@ -103,6 +107,9 @@ export default function Navigation() {
                           ? "neo-brutalism-blue-active"
                           : "neo-brutalism-white"
                       )}
+                      onClick={() => {
+                        setOpen(false);
+                      }}
                     >
                       <Icon className="size-6" />
                       <span className="text-base font-bold">{name}</span>

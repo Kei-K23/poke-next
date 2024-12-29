@@ -15,7 +15,7 @@ export default async function LeaderboardPage() {
   const pokemonRanking = await getPokemonRankings();
 
   return (
-    <div className="container mx-auto py-10">
+    <div className="container mx-auto py-10 px-4">
       <div className="overflow-x-auto">
         <Table>
           <TableHeader className="bg-gray-200">
@@ -52,11 +52,11 @@ export default async function LeaderboardPage() {
                   </TableCell>
                   <TableCell>
                     <div className="w-full max-w-[200px]">
-                      <div className="flex justify-between mb-1">
-                        <span className="text-sm font-medium">
+                      <div className="flex flex-col lg:flex-row justify-between mb-1">
+                        <span className="lg:text-sm lg:font-medium">
                           {winRate.toFixed(1)}%
                         </span>
-                        <span>
+                        <span className="hidden lg:block">
                           {p.wins} {p.wins >= 1 ? "wins" : "win"}
                         </span>
                       </div>
@@ -69,12 +69,12 @@ export default async function LeaderboardPage() {
                   </TableCell>
                   <TableCell>
                     <div className="w-full max-w-[200px]">
-                      <div className="flex justify-between mb-1">
-                        <span className="text-sm font-medium">
+                      <div className="flex flex-col lg:flex-row justify-between mb-1">
+                        <span className="lg:text-sm lg:font-medium">
                           {lossRate.toFixed(1)}%
                         </span>
-                        <span>
-                          {p.wins} {p.wins >= 1 ? "losses" : "losses"}
+                        <span className="hidden lg:block">
+                          {p.wins} {p.wins >= 1 ? "loss" : "losses"}
                         </span>
                       </div>
                       <Progress

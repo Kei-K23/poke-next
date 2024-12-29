@@ -13,8 +13,10 @@ export default function SearchPage() {
 
   return (
     <div className="space-y-8 container mx-auto px-4 py-8">
-      <div className="text-center max-w-2xl mx-auto neo-brutalism-blue p-8">
-        <h2 className="mb-2 text-4xl font-bold">Search PokéNext</h2>
+      <div className="text-center max-w-2xl mx-auto neo-brutalism-blue p-4 lg:p-8">
+        <h2 className="mb-2 text-xl md:text-2xl lg:text-4xl font-bold">
+          Search PokéNext
+        </h2>
         <p>Search for your favorite Pokémon by name</p>
       </div>
       <div className="max-w-sm relative neo-brutalism mx-auto">
