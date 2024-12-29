@@ -142,8 +142,8 @@ export default function Filter({
   ]);
 
   return (
-    <div className="flex items-center justify-between">
-      <div className="flex items-center gap-x-4">
+    <div className="flex flex-col lg:flex-row items-center justify-between gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
         <Select
           value={selectedType}
           onValueChange={(value) => setSelectedType(value)}
