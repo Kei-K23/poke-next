@@ -3,8 +3,8 @@
 import { usePokemon } from "@/context/pokemon-context";
 import { getTypeColor } from "@/lib/utils";
 import Image from "next/image";
-import ProgressBar from "./ui/progress-bar";
 import { Activity, Ruler, Weight } from "lucide-react";
+import { Progress } from "./ui/progress";
 
 interface PokemonDetailProps {
   id: string;
@@ -70,7 +70,7 @@ export default function PokemonDetail({ id }: PokemonDetailProps) {
                   <span className="capitalize">{stat.stat.name}</span>
                   <span>{stat.base_stat}</span>
                 </div>
-                <ProgressBar progress={stat.base_stat} />
+                <Progress value={stat.base_stat} />
               </div>
             ))}
           </div>

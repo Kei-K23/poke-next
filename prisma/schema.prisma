@@ -8,8 +8,10 @@ generator client {
 }
 
 model Vote {
-    id           String   @id @default(cuid())
-    createdAt    DateTime @default(now())
-    votedFor     String
-    votedAgainst String
+    id                   String   @id @default(cuid())
+    createdAt            DateTime @default(now())
+    votedFor             String
+    votedForImageUrl     String
+    votedAgainst         String
+    votedAgainstImageUrl String
 }

@@ -1,5 +1,5 @@
 "use client";
-import { Gamepad, Search } from "lucide-react";
+import { ChartNoAxesColumn, Gamepad, Heart, Search, Vote } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import { motion } from "framer-motion";
@@ -8,12 +8,24 @@ import { cn } from "@/lib/utils";
 
 const NAVIGATION = [
   {
+    name: "Roundest",
+    link: "/roundest",
+    icon: Vote,
+  },
+  {
+    name: "Leaderboard",
+    link: "/leaderboard",
+    icon: ChartNoAxesColumn,
+  },
+  {
     name: "Favorite",
     link: "/favorite",
+    icon: Heart,
   },
   {
     name: "Search",
     link: "/search",
+    icon: Search,
   },
 ];
 
@@ -41,19 +53,19 @@ export default function Navigation() {
             <span className="text-xl font-bold">PokéNext</span>
           </Link>
           <div className="flex items-center gap-x-4">
-            {NAVIGATION.map((nav) => (
+            {NAVIGATION.map(({ name, link, icon: Icon }) => (
               <Link
-                key={nav.name}
-                href={nav.link}
+                key={name}
+                href={link}
                 className={cn(
                   "px-4 py-2 flex items-center gap-x-2",
-                  pathname === nav.link
+                  pathname === link
                     ? "neo-brutalism-blue-active"
                     : "neo-brutalism-white"
                 )}
               >
-                <Search className="size-6" />
-                <span className="text-base font-bold">{nav.name}</span>
+                <Icon className="size-6" />
+                <span className="text-base font-bold">{name}</span>
               </Link>
             ))}
           </div>

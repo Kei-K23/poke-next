@@ -47,11 +47,69 @@ export const getTwoRandomPokemon = async () => {
   return randomPokemonDetail.filter(Boolean);
 };
 
-export const votePokemon = async (votedFor: string, votedAgainst: string) => {
+export const votePokemon = async (votedFor: Pokemon, votedAgainst: Pokemon) => {
   await prisma.vote.create({
     data: {
-      votedFor,
-      votedAgainst,
+      votedFor: votedFor.name,
+      votedAgainst: votedAgainst.name,
+      votedForImageUrl:
+        votedFor.sprites.other["official-artwork"].front_default,
+      votedAgainstImageUrl:
+        votedAgainst.sprites.other["official-artwork"].front_default,
     },
   });
+};
+
+export const getPokemonRankings = async () => {
+  const votes = await prisma.vote.findMany();
+
+  // Use a map to aggregate the data
+  const rankings: Record<
+    string,
+    {
+      name: string;
+      wins: number;
+      losses: number;
+      rounds: number;
+      imageUrl: string;
+    }
+  > = {};
+
+  votes.forEach((vote) => {
+    const { votedFor, votedForImageUrl, votedAgainst, votedAgainstImageUrl } =
+      vote;
+
+    // Add wins for the votedFor Pokémon
+    if (!rankings[votedFor]) {
+      rankings[votedFor] = {
+        name: votedFor,
+        wins: 0,
+        losses: 0,
+        rounds: 0,
+        imageUrl: votedForImageUrl,
+      };
+    }
+    rankings[votedFor].wins += 1;
+    rankings[votedFor].rounds += 1;
+
+    // Add losses for the votedAgainst Pokémon
+    if (!rankings[votedAgainst]) {
+      rankings[votedAgainst] = {
+        name: votedAgainst,
+        wins: 0,
+        losses: 0,
+        rounds: 0,
+        imageUrl: votedAgainstImageUrl,
+      };
+    }
+    rankings[votedAgainst].losses += 1;
+    rankings[votedAgainst].rounds += 1;
+  });
+
+  // Convert the map to a sorted array
+  const sortedRankings = Object.values(rankings).sort(
+    (a, b) => b.wins - a.wins || a.losses - b.losses
+  ); // Sort by wins, then losses
+
+  return sortedRankings;
 };
