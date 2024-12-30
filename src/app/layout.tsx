@@ -13,11 +13,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "PokéNext",
     description: "Explore the world of Pokémon with our modern Pokédex",
-    url: "https://www.myamazingwebapp.com",
+    url: "https://poke-next-plum.vercel.app",
     siteName: "PokéNext",
     images: [
       {
-        url: "https://www.myamazingwebapp.com/og-image.jpg",
+        url: "https://poke-next-plum.vercel.app/poke_next_web_img.png",
         width: 1200,
         height: 630,
       },
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     title: "PokéNext",
     description: "Explore the world of Pokémon with our modern Pokédex",
     creator: "@Kei_Katherin",
-    images: ["https://www.myamazingwebapp.com/twitter-image.jpg"],
+    images: ["https://poke-next-plum.vercel.app/poke_next_web_img.png"],
   },
   robots: {
     index: true,
