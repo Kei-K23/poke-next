@@ -51,7 +51,11 @@ export default function PokemonCard({ pokemon }: PokemonCardProps) {
         </div>
         <div className="neo-brutalism aspect-square relative bg-[#FFE8E8]">
           <Image
-            src={pokemon.sprites.other["official-artwork"].front_default}
+            src={
+              pokemon.sprites.other["official-artwork"].front_default ||
+              pokemon.sprites.other["home"].front_default ||
+              pokemon.sprites.other["dream_world"].front_default
+            }
             alt={pokemon.name}
             className="w-full h-full object-contain"
             fill

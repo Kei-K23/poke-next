@@ -77,7 +77,11 @@ async function VoteContent() {
                 className="flex items-center justify-center flex-col"
               >
                 <Image
-                  src={p.sprites.other["official-artwork"].front_default}
+                  src={
+                    p.sprites.other["official-artwork"].front_default ||
+                    p.sprites.other["home"].front_default ||
+                    p.sprites.other["dream_world"].front_default
+                  }
                   alt={p.name}
                   width={300}
                   height={300}

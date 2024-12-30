@@ -41,6 +41,7 @@ export default function PokemonDetail({ id }: PokemonDetailProps) {
     const prevPokemon = pokemonDetailsList[prevIndex];
     router.push(`/pokemon/${prevPokemon.id}`); // Navigate to the previous Pokémon's page
   };
+
   return (
     <div
       className="h-full w-full"
@@ -133,7 +134,11 @@ export default function PokemonDetail({ id }: PokemonDetailProps) {
         </div>
         <div className="relative w-full flex items-center justify-center">
           <Image
-            src={pokemon?.sprites.other["official-artwork"].front_default}
+            src={
+              pokemon?.sprites.other["official-artwork"].front_default ||
+              pokemon?.sprites.other["home"].front_default ||
+              pokemon?.sprites.other["dream_world"].front_default
+            }
             alt={pokemon?.name}
             width={400}
             height={400}

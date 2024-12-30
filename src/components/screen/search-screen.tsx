@@ -36,7 +36,10 @@ export default function SearchScreen() {
         setSearchResult={setSearchResult}
       />
       {searchResult.length > 0 ? (
-        <PokemonGridContainer filteredResult={searchResult} />
+        <PokemonGridContainer
+          filteredResult={searchResult}
+          isNotAllowObserver
+        />
       ) : (
         <p className="text-center mt-4">No Pokémon found.</p>
       )}

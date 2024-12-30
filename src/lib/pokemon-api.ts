@@ -1,6 +1,6 @@
 import { Pokemon, PokemonList } from "@/context/pokemon-context";
-import { config } from "./config";
 import { prisma } from "./db";
+import config from "./config";
 
 export const getAllPokemon = async (
   limit = 150,
