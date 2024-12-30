@@ -10,6 +10,16 @@ import {
 import React from "react";
 import Image from "next/image";
 import { Progress } from "@/components/ui/progress";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Leaderboard | PokéNext",
+  description: "See the rankings of Pokémon based on user votes",
+  openGraph: {
+    title: "Leaderboard | PokéNext",
+    description: "See the rankings of Pokémon based on user votes",
+  },
+};
 
 export default async function LeaderboardPage() {
   const pokemonRanking = await getPokemonRankings();

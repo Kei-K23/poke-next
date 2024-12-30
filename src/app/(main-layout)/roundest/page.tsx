@@ -2,9 +2,19 @@ import { pressStart2P } from "@/app/fonts";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getTwoRandomPokemon, votePokemon } from "@/lib/pokemon-api";
 import { cn } from "@/lib/utils";
+import { Metadata } from "next";
 import { revalidatePath } from "next/cache";
 import Image from "next/image";
 import { Suspense } from "react";
+
+export const metadata: Metadata = {
+  title: "Roundest | PokéNext",
+  description: "Participate in voting to select the 'roundest' Pokémon",
+  openGraph: {
+    title: "Roundest | PokéNext",
+    description: "Participate in voting to select the 'roundest' Pokémon",
+  },
+};
 
 function VoteContentLoading() {
   return (

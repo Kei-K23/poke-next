@@ -1,4 +1,14 @@
 import PokemonGridContainer from "@/components/pokemon-grid-container";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Home | PokéNext",
+  description: "Explore the world of Pokémon with our modern Pokédex",
+  openGraph: {
+    title: "Home | PokéNext",
+    description: "Explore the world of Pokémon with our modern Pokédex",
+  },
+};
 
 export default function Home() {
   return (
