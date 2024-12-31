@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { PokemonProvider } from "@/context/pokemon-context";
 import { geistMono, geistSans, pressStart2P } from "./fonts";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "PokéNext",
@@ -61,7 +62,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${pressStart2P.variable} antialiased`}
       >
-        <PokemonProvider>{children}</PokemonProvider>
+        <PokemonProvider>
+          {children}
+          <Toaster />
+        </PokemonProvider>
       </body>
     </html>
   );

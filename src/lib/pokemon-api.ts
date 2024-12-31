@@ -33,24 +33,6 @@ export const getPokemon = async (name: string): Promise<Pokemon | null> => {
   return data;
 };
 
-export const getTwoRandomPokemon = async () => {
-  const allPokemon = await getAllPokemon(100000, 0);
-  const shuffled = allPokemon.sort(() => 0.5 - Math.random());
-
-  // Get the first two Pokémon from the shuffled list
-  const selectedPokemon = shuffled.slice(0, 2);
-
-  // Fetch details for the selected Pokémon
-  const randomPokemonDetail = await Promise.all(
-    selectedPokemon.map(async (p) => {
-      const pokemonDetail = await getPokemon(p.name);
-      return pokemonDetail; // Include only if pokemonDetail is not null
-    })
-  );
-
-  return randomPokemonDetail.filter(Boolean);
-};
-
 export const votePokemon = async (votedFor: Pokemon, votedAgainst: Pokemon) => {
   if (!votedFor || !votedAgainst) {
     throw new Error(

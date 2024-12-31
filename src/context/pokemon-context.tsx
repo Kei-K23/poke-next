@@ -58,12 +58,15 @@ interface PokemonProviderProps {
 
 interface PokemonContextType {
   pokemonDetailsList: Pokemon[];
+  pokemonDetailsListForVote: Pokemon[];
   favoritePokemon: Pokemon[];
   isLoading: boolean;
+  isLoadingForVote: boolean;
+  hasMore: boolean;
   addFavorite: (pokemon: Pokemon) => void;
   removeFavorite: (pokemonId: number) => void;
   fetchMorePokemon: () => Promise<void>;
-  hasMore: boolean;
+  fetchAllPokemon: () => Promise<void>;
 }
 
 // Create context
@@ -72,7 +75,11 @@ const PokemonContext = createContext<PokemonContextType | undefined>(undefined);
 // Create provider
 export const PokemonProvider = ({ children }: PokemonProviderProps) => {
   const [pokemonDetailsList, setPokemonDetailsList] = useState<Pokemon[]>([]);
+  const [pokemonDetailsListForVote, setPokemonDetailsListForVote] = useState<
+    Pokemon[]
+  >([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingForVote, setIsLoadingForVote] = useState(false);
   const [favoritePokemon, setFavoritePokemon] = useState<Pokemon[]>([]);
   const [offset, setOffset] = useState(0);
   const [hasMore, setHasMore] = useState(true);
@@ -145,6 +152,52 @@ export const PokemonProvider = ({ children }: PokemonProviderProps) => {
     }
   }, [offset, isLoading, hasMore]);
 
+  // Add a function to fetch all Pokémon data
+  const fetchAllPokemon = useCallback(async () => {
+    try {
+      setIsLoadingForVote(true);
+
+      let allPokemonList: PokemonList[] = [];
+      let currentOffset = 0;
+      const limit = 100; // Fetch in chunks to optimize requests
+
+      // Fetch Pokémon data until all are retrieved
+      while (true) {
+        const pokemonList = await getAllPokemon(limit, currentOffset);
+        if (pokemonList.length === 0) break;
+
+        allPokemonList = [...allPokemonList, ...pokemonList];
+        currentOffset += limit;
+      }
+
+      // Fetch detailed data for all Pokémon
+      const allPokemonDetails = await Promise.all(
+        allPokemonList.map(async (pokemon) => {
+          const pokemonDetail = await getPokemon(pokemon.name);
+          return pokemonDetail;
+        })
+      );
+
+      const uniquePokemonDetails = allPokemonDetails
+        .filter(
+          (pokemon): pokemon is Pokemon =>
+            pokemon !== null && pokemon !== undefined
+        ) // Ensure no null or undefined values
+        .reduce<Pokemon[]>((unique, pokemon) => {
+          if (!unique.some((p) => p.id === pokemon.id)) {
+            unique.push(pokemon);
+          }
+          return unique;
+        }, []); // Deduplicate Pokémon
+
+      setPokemonDetailsListForVote(uniquePokemonDetails);
+    } catch (error) {
+      console.log("Error fetching all Pokémon data:", error);
+    } finally {
+      setIsLoadingForVote(false);
+    }
+  }, []);
+
   useEffect(() => {
     fetchMorePokemon();
   }, []);
@@ -153,12 +206,15 @@ export const PokemonProvider = ({ children }: PokemonProviderProps) => {
     <PokemonContext.Provider
       value={{
         pokemonDetailsList,
+        pokemonDetailsListForVote,
         isLoading,
+        isLoadingForVote,
         favoritePokemon,
+        hasMore,
         addFavorite,
         removeFavorite,
         fetchMorePokemon,
-        hasMore,
+        fetchAllPokemon,
       }}
     >
       {children}
