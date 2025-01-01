@@ -34,9 +34,11 @@ Explore the world of Pokémon with our modern Pokédex. A feature-rich Pokédex 
 
 ## Tech Stack
 
+- **Language**: [TypeScript](https://www.typescriptlang.org)
 - **Frontend**: [Next.js](https://nextjs.org/), [React.js](https://reactjs.org/), [TailwindCSS](https://tailwindcss.com/), [Shadcn UI](https://ui.shadcn.dev/)
 - **Backend**: [Prisma](https://www.prisma.io/), [PostgreSQL](https://www.postgresql.org/)
 - **API**: [Pokémon API](https://pokeapi.co/api/v2)
+- **Runtime and Package Manager**: [Bun](https://bun.sh)
 
 ## Installation
 
