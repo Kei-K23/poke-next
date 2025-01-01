@@ -28,6 +28,10 @@ Explore the world of Pokémon with our modern Pokédex. A feature-rich Pokédex 
 - See the rankings of Pokémon based on user votes.
 - Track which Pokémon are the most loved and roundest in the community.
 
+### ⚙️ Boot SEO
+
+- Using necessary and required metadata tags for SEO support for the website.
+
 ## Tech Stack
 
 - **Frontend**: [Next.js](https://nextjs.org/), [React.js](https://reactjs.org/), [TailwindCSS](https://tailwindcss.com/), [Shadcn UI](https://ui.shadcn.dev/)
